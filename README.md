@@ -6,6 +6,9 @@ Project MDS dari Kelompok 1 STA
 
 
 ## Skema Database
+<p align="center" style="width: 800px; height: 400px;">
+  <img width="100%" height="100%" src="image/Skema.JPG">
+</p>
 
 ## ERD
 
