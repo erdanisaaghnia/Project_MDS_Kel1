@@ -1,10 +1,21 @@
 # Project_MDS_Kel1
 Project MDS dari Kelompok 1 STA
 
-Nabila Tri Amanda (G1501231068)
+## INFO
+**Database Penjualan Supermarket Istana Langit* 
 
-Erdanisa Aghnia Ilmani (G1501231032)
 
-Fajar Athallah Yusuf (G1501231038)
+## Skema Database
 
-Anwar Fajar Rizki (G1501231003)
+## ERD
+
+## Deskripsi Data
+
+## Tim 
++ Database Manager : [Nabila Tri Amanda](https://github.com/nbltriamanda) (G1501231068)
++ Frontend Developer : [Erdanisa Aghnia Ilmani](https://github.com/) (G1501231032)
++ Backend Developer : [Fajar Athallah Yusuf](https://github.com/) (G1501231038)
++ Technical Writer : [Anwar Fajar Rizki](https://github.com/) (G1501231003)
+ 
+
+ 
