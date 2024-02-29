@@ -40,7 +40,7 @@ Project akhir mata kuliah Manajemen Data Statistika mengambil topik tentang Penj
 ## :rice_scene: Screenshot
 
 <p align="center">
-  <img width="900" height="500" src="https://github.com/rismandwij/kel7_mds/blob/main/doc/Dashboar.png">
+  <img width="900" height="500" src="dashboard sementara.png">
 </p>
 
 ## :dvd: Demo
