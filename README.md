@@ -75,8 +75,7 @@ Menggambarkan struktur *primary key* **produk**, **invoice**, **pelanggan** dan 
 </p>
 
 ## :heavy_check_mark: Deskripsi Data
-
-Berisi tentang tabel-tabel yang digunakan berikut dengan sintaks SQL DDL (CREATE).
+Data proyek ini diperoleh dari Kaggle Walmart Sales Forecasting Competition dan mencakup transaksi penjualan dari tiga cabang supermarket yang masing-masing berlokasi di Mandalay, Yangon, dan Naypyitaw. Berisi tentang tabel-tabel yang digunakan berikut dengan sintaks SQL DDL (CREATE).
 
 ### Create Database
 Databse Penjualan Supermarket Istana Langit menyimpan informasi yang mewakili atribut data yang saling berhubungan untuk kemudian dianalisis.
