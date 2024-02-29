@@ -1,6 +1,12 @@
 # Project_MDS_Kel1
 Project MDS dari Kelompok 1 STA
 
+<p align="center">
+  <img width="400" height="143" src="https://github.com/erdanisaaghnia/Project_MDS_Kel1/blob/main/logo.JPG">
+</p>
+
+
+
 ## INFO
 **Database Penjualan Supermarket Istana Langit* 
 
