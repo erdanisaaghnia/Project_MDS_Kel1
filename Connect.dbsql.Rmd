@@ -1,0 +1,144 @@
+---
+title: "Connect.dbsql"
+output: html_document
+date: "2024-03-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(DBI)
+library(RPostgreSQL)
+
+# Connect to the database
+driver <- dbDriver('PostgreSQL')
+dbhost <- dbConnect(
+  driver, 
+  dbname="Supermarket Istana Langit", 
+  host="localhost",
+  port=5432,
+  user="postgres",
+  password="Tigabelas13"
+)
+```
+
+```{r}
+# Read the data from CSV
+Invoice<- read.csv("https://raw.githubusercontent.com/erdanisaaghnia/Project_MDS_Kel1/main/Data/Invoice.csv", sep = ";")
+
+# Adjust column names and data types
+Invoice$ID_Invoice <- as.character(Invoice$ID_Invoice)
+Invoice$ID_Produk <- as.character(Invoice$ID_Produk)
+Invoice$ID_Cabang <- as.character(Invoice$ID_Cabang)
+Invoice$ID_Pelanggan <- as.character(Invoice$ID_Pelanggan)
+Invoice$Total <- as.numeric(gsub("\\.", "", Invoice$Total))
+Invoice$Tanggal <- as.Date(Invoice$Tanggal, format = "%m/%d/%Y")
+Invoice$Waktu <- as.POSIXct(Invoice$Waktu, format = "%H:%M:%S")
+Invoice$Pembayaran <- as.character(Invoice$Pembayaran)
+Invoice$Penilaian <- as.numeric(Invoice$Penilaian)
+Invoice
+```
+
+```{r}
+for (i in 1:nrow(Invoice)) {
+  query <- paste0("INSERT INTO Invoice (ID_Invoice, ID_Produk, ID_Cabang, Total, ID_Pelanggan, Tanggal, Waktu, Pembayaran, Penilaian) VALUES (",
+                "'", Invoice[i, "ID_Invoice"], "', ",
+                "'", Invoice[i, "ID_Produk"], "', ",
+                "'", Invoice[i, "ID_Cabang"], "', ",
+                "'", Invoice[i, "Total"], "', ",  # Keep as character
+                "'", Invoice[i, "ID_Pelanggan"], "', ",
+                "'", Invoice[i, "Tanggal"], "', ",
+                "'", Invoice[i, "Waktu"], "', ",
+                "'", Invoice[i, "Pembayaran"], "', ",
+                Invoice[i, "Penilaian"],
+                ");")
+  query_execute <- DBI::dbExecute(conn = dbhost, statement=query)
+}
+```
+
+```{r}
+# Read the data from CSV
+Produk <- read.csv("https://raw.githubusercontent.com/erdanisaaghnia/Project_MDS_Kel1/main/Data/Produk.csv", sep=";")
+
+Produk$ID_Produk <- as.character(Produk$ID_Produk)
+Produk$Kategori_Produk <- as.character(Produk$Kategori_Produk)
+Produk$Harga_Satuan <- as.numeric(gsub("\\.", "", Produk$Harga_Satuan))
+Produk$Kuantitas <- as.numeric(Produk$Kuantitas)
+Produk$Total_Harga <- as.numeric(gsub("\\.", "", Produk$Total_Harga))
+Produk$ID_Cabang <- as.character(Produk$ID_Cabang)
+Produk
+```
+
+```{r}
+for (i in 1:nrow(Invoice)) {
+  query <- paste0("INSERT INTO Produk (ID_Produk, Kategori_Produk, Harga_Satuan, Kuantitas, Total_Harga, ID_Cabang) VALUES (",
+                  "'", Produk[i, "ID_Produk"], "', ",
+                  "'", Produk[i, "Kategori_Produk"], "', ",
+                  Produk[i, "Harga_Satuan"], ", ",
+                  Produk[i, "Kuantitas"], ", ",
+                  Produk[i, "Total_Harga"], ", ",
+                  "'", Produk[i, "ID_Cabang"], "')")
+  query_execute <- DBI::dbExecute(conn = dbhost, statement=query)
+}
+```
+
+```{r}
+# Read the data from CSV
+Cabang <- read.csv("https://raw.githubusercontent.com/erdanisaaghnia/Project_MDS_Kel1/main/Data/Cabang.csv", sep=";")
+Cabang$ID_Cabang <- as.factor(Cabang$ID_Cabang)
+Cabang$ID_Produk <- as.character(Cabang$ID_Produk)
+Cabang$Kota <- as.character(Cabang$Kota)
+Cabang
+```
+
+```{r}
+for (i in 1:nrow(Cabang)) {
+  query <- paste0("INSERT INTO Cabang (ID_Cabang, ID_Produk, Kota) VALUES (",
+                "'", Cabang[i, "ID_Cabang"], "', ",
+                "'", Cabang[i, "ID_Produk"], "', ",
+                "'", Cabang[i, "Kota"], "'", # Tambahkan tanda kutip di sekitar nilai string
+                ");")
+  query_execute <- DBI::dbExecute(conn = dbhost, statement=query)
+}
+```
+
+```{r}
+# Read the data from CSV
+Pelanggan <- read.csv("https://raw.githubusercontent.com/erdanisaaghnia/Project_MDS_Kel1/main/Data/Pelanggan.csv", sep=";")
+Pelanggan$ID_Pelanggan<- as.character(Pelanggan$ID_Pelanggan)
+Pelanggan$Tipe_Pelanggan<- as.character(Pelanggan$Tipe_Pelanggan)
+Pelanggan$Jenis_Kelamin <- as.character(Pelanggan$Jenis_Kelamin)
+Pelanggan
+```
+
+```{r}
+for (i in 1:nrow(Pelanggan)) {
+  query <- paste0("INSERT INTO Pelanggan (ID_Pelanggan, Tipe_Pelanggan, Jenis_Kelamin) VALUES (",
+                   "'", Pelanggan[i, "ID_Pelanggan"], "', ",
+                   "'", Pelanggan[i, "Tipe_Pelanggan"], "', ",
+                   "'", Pelanggan[i, "Jenis_Kelamin"], "');")
+  query_execute <- DBI::dbExecute(conn = dbhost, statement=query)
+}
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
