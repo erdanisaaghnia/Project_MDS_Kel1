@@ -62,7 +62,7 @@ Dokumentasi penggunaan aplikasi database. Anda dapat juga membuat dokumentasi li
 
 Menggambarkan struktur *primary key* **produk**, **invoice**, **pelanggan** dan **cabang** dengan masing-masing *foreign key* dalam membangun relasi antara tabel atau entitas.
 <p align="center">
-  <img width="600" height="400" src="Doc/Skema.JPG">
+  <img width="600" height="400" src="Doc/SKEMA.png">
 </p>
 
 ## :rotating_light: ERD
