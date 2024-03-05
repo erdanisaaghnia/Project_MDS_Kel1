@@ -91,103 +91,83 @@ CREATE DATABASE data_penjualan
 Table Produk memberikan informasi kepada user mengenai info produk yang ada di supermarket Istana Langit, sehingga user dapat mengetahui id produk, kategori produk, harga satuan dari produk tersebut, jumlah produk yang terjual, total penjualan produk tersebut dan id cabang dari produk tersebut. Berikut deskripsi untuk setiap tabel instansi.
 | Attribute          | Type                  | Description                     |
 |:-------------------|:----------------------|:--------------------------------|
-| ID_Produk          | smallint              | Id Produk                       |
+| ID_Produk          | smallint              | Kode Produk                     |
 | Kategori_Produk    | character varying(100)| Kategori Produk                 |
 | Harga_Satuan       | DECIMAL(10,2)         | Harga Satuan Produk             |
 | Kuantitas          | smallint	             | Jumlah Penjulan Produk          |
-| Total_Harga        | DECIMAL(12,2)		     | Total Harga Penjualan           |
-| ID_Cabang          | character varying(5)  | ID Cabang                       |
+| Total_Harga        | DECIMAL(12,20)	     | Total Harga Penjualan           |
+| ID_Cabang          | character varying(5)  | Kode Cabang                     |
 
 dengan script SQL sebagai berikut:
 ```sql
-CREATE TABLE IF NOT EXISTS public.produk (
-    id_produk INT,
-    kategori_produk varchar(100) NOT NULL,
-    harga_satuan DECIMAL(10,2) NOT NULL,
-	kuantitas int,
-	total_harga DECIMAL(12,2) NOT NULL,
-	id_cabang VARCHAR(5) NOT NULL,
-    PRIMARY KEY (id_produk)
+CREATE TABLE IF NOT EXISTS public.Produk (
+    ID_Produk int NOT NULL PRIMARY KEY,
+	Kategori_Produk varchar (100),
+    Harga_Satuan decimal(10,2) NOT NULL,
+    Kuantitas int NOT NULL,
+	Total_Harga decimal (12,2),
+	ID_Cabang varchar(5)
 );
 ```
 ### Create Table Cabang
 Table cabang memberikan informasi yang memudahkan user mengetahui tempat cabang dari penjualan suatu produk melalui id cabang, id produk dan kota asal cabang tersebut berada. Id cabang adalah kode yang digunakan untuk membedakan nama cabang yang sama pada tiap produk yang terjual. Berikut deskripsi untuk setiap tabel cabang.
 | Attribute          | Type                  | Description                     |
 |:-------------------|:----------------------|:--------------------------------|
-| id_cabang          | character varying(5)  | Id Cabang                       |
-| id_produk          | smallint              | Id Produk                       |
-| kota               | character varying(30) | Kota Asal Cabang                |
+| ID_Cabang          | character varying(5)  | Kode Cabang                     |
+| ID_Produk          | smallint              | Kode Produk                     |
+| Kota               | character varying(30) | Kota Asal Cabang                |
 
 dengan script SQL sebagai berikut:
 ```sql
-CREATE TABLE IF NOT EXISTS public.cabang (
-    id_cabang varchar(5) COLLATE pg_catalog."default" NOT NULL,
-    id_produk INT COLLATE pg_catalog."default" NOT NULL,
-    kota varchar(30),
-    CONSTRAINT cabang_pkey PRIMARY KEY (id_cabang),
-    CONSTRAINT departemen_id_instansi_fkey FOREIGN KEY (id_produk)
-        REFERENCES public.produk (id_produk) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+CREATE TABLE IF NOT EXISTS public.Cabang (
+    ID_Cabang varchar(30) NOT NULL,
+	ID_Produk int NOT NULL,
+    Kota varchar(30) NOT NULL,
+    PRIMARY KEY (ID_Cabang)
 );
 ```
 ### Create Table Invoice
 Table invoice menyajikan informasi lengkap mengenai sebuah transaksi penjualan. Selain dapat mengetahui penjualan, user juga akan mendapatkan informasi tanggal dan waktu penjualan sebuah produk. Tipe pelanggan, produk yang terjual, cabang tempat transaksi terjadi, pembayaran hingga penilaian terhadap transaksi penjualan tersaji pada table ini. Lebih lanjut, informasi spesifik mengenai id invoice, id produk, id cabang dan tipe pelanggan dapat diketahui melalui table ini.  Berikut deskripsi untuk setiap tabel invoice.
-| Attribute                  | Type                  | Description                     		             |
-|:---------------------------|:----------------------|:------------------------------------------------|
-| id_invoice                 | character varying(30) | Id Invoice                      		             |
-| id_produk                  | smallint              | Id Produk                 		                   |
-| id_cabang                  | character varying(5)  | Id Cabang                  		                 |	
-| tipe_pelanggan             | character varying(30) | Tipe pelanggan                	                 |
-| tanggal                    | datetime              | Tanggal Transaksi                               |
-| waktu    	                 | time                  | Waktu Transaksi                                 |
-| pembayaran                 | decimal(10,2)         | Jumlah Pembayaran    			                     |
-| penilaian		               | float(2,1)            | Penilaian terhadap penjualan produk		         |
+| Attribute                  | Type                  | Description                     		       	|
+|:---------------------------|:----------------------|:-------------------------------------------------|
+| ID_Invoice                 | character varying(30) | Id Invoice                      		       	|
+| ID_Produk                  | smallint              | Id Produk                 		       	|
+| ID_Cabang                  | character varying(5)  | Id Cabang                  		       	|	
+| Tipe_Pelanggan             | character varying(30) | Tipe pelanggan                	               	|
+| Tanggal                    | datetime              | Tanggal Transaksi                               	|
+| Waktu    	             | time                  | Waktu Transaksi                                 	|
+| Pembayaran                 | character varying(30) | Jumlah Pembayaran    			       	|
+| Penilaian		     | float(2,1)            | Penilaian terhadap penjualan produk		|	
 
 dengan script SQL sebagai berikut:              
 ```sql
-CREATE TABLE IF NOT EXISTS public.judul (
-    id_invoice varchar(30) COLLATE pg_catalog."default" NOT NULL,
-    id_produk int COLLATE pg_catalog."default" NOT NULL,
-    id_cabang varchar(5) COLLATE pg_catalog."default" NOT NULL, 
-    tipe_pelanggan varchar(30) COLLATE pg_catalog."default" NOT NULL,  
-    tanggal datetime,
-    waktu time,
-    pembayaran decimal(10,2) NOT NULL,
-    penilaian float(2,1) NOT NULL,   
-    CONSTRAINT invoice_pkey PRIMARY KEY (id_invoice),
-    CONSTRAINT invoice_id_produk_fkey FOREIGN KEY (id_produk)
-        REFERENCES public.produk (id_produk) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT invoice_id_cabang_fkey FOREIGN KEY (id_cabang)
-        REFERENCES public.cabang (id_cabang) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT invoice_tipe_pelanggan_fkey FOREIGN KEY (tipe_pelanggan)
-        REFERENCES public.pelanggan (tipe_pelanggan) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-    );
+CREATE TABLE IF NOT EXISTS public.Invoice (
+    ID_Invoice varchar(30) NOT NULL ,
+    ID_Produk int NOT NULL,
+	ID_Cabang varchar(5) NOT NULL,
+    Tipe_Pelanggan varchar(30) NOT NULL,
+	Total decimal (12,4) NOT NULL,
+	Tanggal date Not NULL,
+	Waktu time NOT NULL,
+	Pembayaran varchar (30) NOT NULL,
+	Penilaian float NOT NULL,
+	PRIMARY KEY (ID_Invoice)
+);
 ```
 ### Create Table Pelanggan
 Table pelanggan memberikan informasi kepada user mengenai beberapa identitas pelanggan. User dapat mengetahui tipe pelanggan dan jenis kelamin pelanggan. Berikut deskripsi untuk setiap tabel penulis.
-| Attribute                  | Type                  | Description                     		             |
-|:---------------------------|:----------------------|:------------------------------------------------|
-| tipe_pelanggan             | character varying(30) | Tipe Pelanggan                      		         |
-| jenis_kelamin              | character varying(10) | Jenis Kelamin Pelanggan                  		   |
+| Attribute                  | Type                  | Description                     		       	|
+|:---------------------------|:----------------------|:-------------------------------------------------|
+| Tipe_Pelanggan             | character varying(30) | Tipe Pelanggan (Member/non member)              	|
+| Jenis_Kelamin              | character varying(10) | Jenis Kelamin Pelanggan               		|
 
 
 dengan script SQL sebagai berikut:
 ```sql
-CREATE TABLE IF NOT EXISTS public.penulis (
-    tipe_pelanggan varchar(30) COLLATE pg_catalog."default" NOT NULL,
-    jenis_kelamin varchar(10) NOT NULL, 
-    CONSTRAINT pelanggan_pkey PRIMARY KEY (tipe_pelanggan),
-    CONSTRAINT pelanggan_tipe_pelanggan_fkey FOREIGN KEY (tipe_pelanggan)
-        REFERENCES public.invoice (tipe_pelanggan) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+CREATE TABLE IF NOT EXISTS public.Pelanggan (
+    Tipe_Pelanggan varchar(30),
+	Jenis_Kelamin varchar(30),
+	PRIMARY KEY (Tipe_Pelanggan)
 );
 ```
 ## :open_file_folder: Struktur Folder
