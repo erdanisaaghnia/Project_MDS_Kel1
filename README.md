@@ -71,7 +71,7 @@ Menggambarkan struktur *primary key* **produk**, **invoice**, **pelanggan** dan 
 
 
 <p align="center">
-  <img width="800" height="400" src="Doc/ERD.png">
+  <img width="800" height="400" src="Doc/ERD..png">
 </p>
 
 ## :heavy_check_mark: Deskripsi Data
