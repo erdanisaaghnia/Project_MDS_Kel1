@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img width="500" height="300" src="https://github.com/erdanisaaghnia/Project_MDS_Kel1/blob/main/LOGO.png">
+  <img width="500" height="300" Doc="https://github.com/erdanisaaghnia/Project_MDS_Kel1/blob/main/Doc/Logo_Back.png">
 </p>
 
 <div align="center">
