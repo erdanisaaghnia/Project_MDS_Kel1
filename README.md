@@ -47,7 +47,7 @@ Project akhir mata kuliah Manajemen Data Statistika mengambil topik tentang Penj
 ## :dvd: Demo
 
 Berikut merupakan link untuk shinnyapps atau dashboard dari project kami:
-https://akmarinak98.shinyapps.io/database_publikasi_statistika/
+https://erdanisaaghnia.shinyapps.io/project/
 
 ## :blue_book: Dokumentasi 
 
